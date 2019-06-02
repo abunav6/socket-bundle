@@ -22,6 +22,7 @@ while True:
     while True:
         row,col=c.recv(1024).decode().split(',')
         serverPlay.append(getBox(row,col))
+        noOfMoves+=1
         if noOfMoves==4:
             print('DRAW')
             sys.exit(0)
