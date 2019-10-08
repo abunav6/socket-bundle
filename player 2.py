@@ -13,11 +13,10 @@ def main():
     printGrid(grid)
     while True:
         a = s.recv(1024).decode()
-        
         try:
             played = int(a)
         except:
-            print(a)
+            print(a)                    #draw or win message
             break
         updateGrid(grid,played,1)       #corresponds to the other player
         system('clear')
@@ -28,14 +27,23 @@ def main():
                 break
             if pos>n**2:
                 print("INVALID INPUT")
+                
         updateGrid(grid,pos,marker)
+        printGrid(grid)
         
         tmp = checkIfWon(grid)
-        s.send(str(pos).encode())
-
-        if tmp[0]:
-            endGame(s,tmp)
+        x = endGame(tmp)
+        if x[0] and x[-1]=="draw":
+            print("Draw!")
+            s.send("Draw!".encode())
             break
+        else:
+            if x[0]:
+                print(x[1])
+                s.send(x[1].encode())
+                break
+            else:
+                s.send(str(pos).encode())
 
     s.close()
 

@@ -41,16 +41,24 @@ def main():
         printGrid(grid)
         
         tmp = checkIfWon(grid)    
-        c.send(str(pos).encode())
-        
-        
-        if tmp[0]:
-            endGame(c,tmp)
-            break
-            
 
+        e = endGame(tmp)
+        if e[0] and e[-1]=="draw":
+            print("Draw!")
+            c.send("Draw!".encode())
+            break
+        
+        else:
+            if e[0]:
+                print(e[1])     #win message
+                c.send(e[1].encode())
+                break
+            #otherwise, game is not over
+            else:
+                c.send(str(pos).encode())
+        
         a = c.recv(1024).decode()
-        print(a)
+        
         try:
             played = int(a)
         except:

@@ -1,5 +1,12 @@
 def updateGrid(grid,pos,m):
-    grid[pos//len(grid)][pos%len(grid)] = m
+    if grid[pos//len(grid)][pos%len(grid)]==0:
+        grid[pos//len(grid)][pos%len(grid)]= m
+    else:
+        while True:
+            tmp = int(input("Enter a different position!\n"))
+            if grid[tmp//len(grid)][tmp%len(grid)] == 0:
+                grid[tmp//len(grid)][tmp%len(grid)] = m
+                break
 
 def createGrid(n):
     
@@ -14,14 +21,20 @@ def printGrid(arr):
     pass
 
 
-def endGame(t,tmp):
-    a= "Player {} WON!".format(tmp[-1])
-    print(a)
-    t.send(a.encode())
+def endGame(tmp):
+    if tmp[0]:
+        a= "Player {} WON!".format(tmp[-1])
+        return (True,a)
+    elif not tmp[0] and tmp[1]=="draw":
+        return (True,"draw")
+    else:
+        return (False,0)
     
 
+    
 
 def checkIfWon(a):
+    
     n = len(a)
     # Check rows
     for i in range(n):
@@ -62,5 +75,17 @@ def checkIfWon(a):
     elif(prod == 1):
         return(True, 1)
     
-    # If neither of the players has won the game, continue the game
-    return (False,0)
+    #check if draw
+    for k in a:
+        flag = False        #flag = False implies no zeroes
+        for b in k:
+            if b==0:
+                flag = True
+                break
+        if flag:
+            break
+    
+    if not flag:
+        return (False,"draw")
+    else:
+        return (False,0)    #Game is not over yet
