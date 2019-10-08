@@ -1,39 +1,40 @@
 import socket
-import sys
 from os import system
+
 from common import *
 
-def main():   
+
+def main():
     marker = 2
     s = socket.socket()
     port = 3135
     s.connect(('127.0.0.1', port))
     n = int(s.recv(1024).decode())
-    grid = createGrid(n)
-    printGrid(grid)
+    grid = create_grid(n)
+    print_grid(grid)
     while True:
         a = s.recv(1024).decode()
         try:
             played = int(a)
         except:
-            print(a)                    #draw or win message
+            print(a)  # draw or win message
             break
-        updateGrid(grid,played,1)       #corresponds to the other player
+        update_grid(grid, played, 1)  # corresponds to the other player
         system('clear')
-        printGrid(grid)
+        print_grid(grid)
         while True:
-            pos = int(input("Enter box number [1-{}]\n".format(n**2 )))-1
-            if pos<=n**2:
+            pos = int(input("Enter box number [1-{}]\n".format(n ** 2))) - 1
+            if pos <= n ** 2:
                 break
-            if pos>n**2:
+            if pos > n ** 2:
                 print("INVALID INPUT")
-                
-        updateGrid(grid,pos,marker)
-        printGrid(grid)
-        
-        tmp = checkIfWon(grid)
-        x = endGame(tmp)
-        if x[0] and x[-1]=="draw":
+
+        update_grid(grid, pos, marker)
+        print_grid(grid)
+
+        tmp = check_if_won(grid)
+        x = end_game(tmp)
+        if x[0] and x[-1] == "draw":
             print("Draw!")
             s.send("Draw!".encode())
             break
@@ -47,5 +48,6 @@ def main():
 
     s.close()
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     main()
