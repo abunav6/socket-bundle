@@ -1,3 +1,4 @@
+
 def update_grid(grid, pos, m):
     if grid[pos // len(grid)][pos % len(grid)] == 0:
         grid[pos // len(grid)][pos % len(grid)] = m

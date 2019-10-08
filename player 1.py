@@ -8,11 +8,8 @@ def main():
     marker = 1
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     port = 3135
-    try:
-        s.bind(('0.0.0.0', port))
-    except OSError:
-        port += 1
-        s.bind(('0.0.0.0', port))
+    socket.SO_REUSEPORT = True
+    s.bind(('0.0.0.0', port))
 
     n = int(input("Enter the grid size\n"))
     grid = create_grid(n)
