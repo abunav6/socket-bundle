@@ -2,6 +2,7 @@
   <dictionary name="anubhavdinkar">
     <words>
       <w>addr</w>
+      <w>reuseport</w>
     </words>
   </dictionary>
 </component>
