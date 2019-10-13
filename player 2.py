@@ -22,12 +22,8 @@ def main():
         update_grid(grid, played, 1)  # corresponds to the other player
         system('clear')
         print_grid(grid)
-        while True:
-            pos = int(input("Enter box number [1-{}]\n".format(n ** 2))) - 1
-            if pos <= n ** 2:
-                break
-            if pos > n ** 2:
-                print("INVALID INPUT")
+
+        pos = get_pos(n)
 
         update_grid(grid, pos, marker)
         print_grid(grid)

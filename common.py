@@ -10,6 +10,16 @@ def update_grid(grid, pos, m):
                 break
 
 
+def get_pos(n):
+    while True:
+        pos = int(input("Enter box number [1-{}]\n".format(n ** 2))) - 1
+        if pos <= n ** 2:
+            break
+        if pos > n ** 2:
+            print("INVALID INPUT")
+    return pos
+
+
 def create_grid(n):
     a = []
     for _ in range(n):
