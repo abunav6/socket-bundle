@@ -1,2 +1,3 @@
 # Tic Tac Toe
-Works with a grid now!
+
+You can play a ```n*n```  tic tac toe game
